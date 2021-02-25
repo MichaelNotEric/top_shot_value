@@ -6,7 +6,7 @@ Usage:
 
 `python3 analyze.py --url <URL of moment listing>`
 
-optional: --maxprice <max price you are willing to spend>
+optional: --maxprice (maximum price you are willing to spend)
 
 
 
