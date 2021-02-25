@@ -14,20 +14,20 @@ argv = sys.argv[1:]
 short_options = "hm:u:"
 long_options = ["help","maxprice=","url="]
 
+usage = ("\nUsage: python3 anaylyze.py --url <url>\n\nOptions:\n\n"
+        + "-m/--maxprice: enter a maximum price you are willing to "
+        + "spend\n-h/--help: display usage information\n")
+
 try:
   args, vals = getopt.getopt(argv, short_options, long_options)
 except getopt.error as err:
   print('\n'+str(err))
-  print("\nUsage: python3 anaylyze.py --url <url>\n\nOptions:\n\n"
-        + "-m/--maxprice: enter a maximum price you are willing to "
-        + "spend\n-h/--help: display usage information\n")
+  print(usage)
   sys.exit(2)
 
 for arg, val in args:
   if arg in ("-h", "--help"):
-    print("\nUsage: python3 anaylyze.py --url <url>\n\nOptions:\n\n"
-          + "-m/--maxprice: enter a maximum price you are willing to "
-          + "spend\n-h/--help: display usage information\n")
+    print(usage)
     sys.exit(2)
   elif arg in ("-u", "--url"):
     url = val
@@ -36,16 +36,12 @@ for arg, val in args:
       max_price = int(val)
     except:
       print("\nMax price entered incorrectly")
-      print("\nUsage: python3 anaylyze.py --url <url>\n\nOptions:\n\n"
-            + "-m/--maxprice: enter a maximum price you are willing to "
-            + "spend\n-h/--help: display usage information\n")
+      print(usage)
       sys.exit(2)
 
 if url == '':
   print("\nURL entered incorrectly")
-  print("\nUsage: python3 anaylyze.py --url <url>\n\nOptions:\n\n"
-        + "-m/--maxprice: enter a maximum price you are willing to "
-         + "spend\n-h/--help: display usage information\n")
+  print(usage)
   sys.exit(2)
 
 
