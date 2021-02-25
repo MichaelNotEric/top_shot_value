@@ -48,13 +48,14 @@ page = requests.get(url)
 soup = BeautifulSoup(page.content, 'html.parser')
 script = soup.find('script', id='__NEXT_DATA__')
 json_object = json.loads(script.contents[0])
+moment = json_object['props']['pageProps']['moment']
 
-moments = (json_object['props']['pageProps']['moment']['momentListings'])
+moments = moment['momentListings']
 
 # add each listing at or below max price if it was passed in
-for moment in moments:
-  serial = int(float(moment['moment']['flowSerialNumber']))
-  price = int(float(moment['moment']['price']))
+for m in moments:
+  serial = int(float(m['moment']['flowSerialNumber']))
+  price = int(float(m['moment']['price']))
   if not max_price:
     listings.insert(0,(serial, price))
   elif price <= max_price:
@@ -70,6 +71,10 @@ while i < len(listings):
 
   i = i + 1
 
+play = moment['play']
+print("\n" + play['stats']['playerName'] + " " + play['stats']['playCategory'])
+print(str(moment['circulationCount']) + " copies exist")
+print(play['series'] + " - " + moment['set']['flowName'] + " " + str(moment['set']['flowSeriesNumber']))
 if max_price:
   print("\nMax Price set to $" + str(max_price) + "\n")
 else:
