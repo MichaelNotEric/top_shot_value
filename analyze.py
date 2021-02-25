@@ -44,7 +44,6 @@ if url == '':
   print(usage)
   sys.exit(2)
 
-
 page = requests.get(url)
 soup = BeautifulSoup(page.content, 'html.parser')
 script = soup.find('script', id='__NEXT_DATA__')
