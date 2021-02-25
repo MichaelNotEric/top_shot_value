@@ -73,9 +73,18 @@ while i < len(listings):
 
   i = i + 1
 
-print("\n" + play['stats']['playerName'] + " " + play['stats']['playCategory'])
+print("\n" + play['stats']['playerName'] + " " +
+      play['stats']['playCategory'] + " - " +
+      moment['set']['flowName'] + " " +
+      str(moment['set']['flowSeriesNumber']))
+
 print(str(moment['circulationCount']) + " copies exist")
-print(moment['set']['flowName'] + " " + str(moment['set']['flowSeriesNumber']))
+
+print(str(moment['momentListingCount']) +
+      " copies are listed for sale between $" +
+      str(int(float(moment['priceRange']['min']))) +
+      " and $" + str(int(float(moment['priceRange']['max']))))
+
 if max_price:
   print("\nMax Price set to $" + str(max_price) + "\n")
 else:
@@ -94,8 +103,12 @@ while i < len(listings):
 
 with open('out.txt','w') as f:
   if jersey_listing:
-    print("#" + str(jersey_listing[0]) + " - $" + str(jersey_listing[1]) + " (Jersey Number)\n")
-    f.write(str(jersey_listing[0]) + "," + str(jersey_listing[1]) + " (Jersey Number)\n\n")
+    print("#" + str(jersey_listing[0]) + " - $" +
+          str(jersey_listing[1]) + " (Jersey Number)\n")
+
+    f.write(str(jersey_listing[0]) + "," + str(jersey_listing[1]) +
+            " (Jersey Number)\n\n")
+
   for l in listings:
     print("#" + str(l[0]) + " - $" + str(l[1]))
     f.write(str(l[0]) + ',' + str(l[1]) + '\n')
