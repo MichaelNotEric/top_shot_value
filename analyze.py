@@ -49,6 +49,7 @@ soup = BeautifulSoup(page.content, 'html.parser')
 script = soup.find('script', id='__NEXT_DATA__')
 json_object = json.loads(script.contents[0])
 moment = json_object['props']['pageProps']['moment']
+play = moment['play']
 
 moments = moment['momentListings']
 
@@ -65,21 +66,35 @@ for m in moments:
 i = 0
 while i < len(listings):
   for l in listings:
-    if listings[i][1] >= l[1] and listings[i][0] > l[0]:
+    if listings[i][1] >= l[1] and listings[i][0] > l[0] and listings[i][0] != int(play['stats']['jerseyNumber']):
       listings.pop(i)
       i = i - 1
 
   i = i + 1
 
-play = moment['play']
 print("\n" + play['stats']['playerName'] + " " + play['stats']['playCategory'])
 print(str(moment['circulationCount']) + " copies exist")
-print(play['series'] + " - " + moment['set']['flowName'] + " " + str(moment['set']['flowSeriesNumber']))
+print(moment['set']['flowName'] + " " + str(moment['set']['flowSeriesNumber']))
 if max_price:
   print("\nMax Price set to $" + str(max_price) + "\n")
 else:
   print("\nNo Max Price was set\n")
+
+jersey_listing = None
+i = 0
+while i < len(listings):
+  if listings[i][0] == int(play['stats']['jerseyNumber']):
+    jersey_listing = "#" + str(listings[i][0]) + " - $" + str(listings[i][1])
+    jersey_listing = (listings[i][0],listings[i][1])
+    listings.pop(i)
+    i = i - 1
+
+  i = i + 1
+
 with open('out.txt','w') as f:
+  if jersey_listing:
+    print("#" + str(jersey_listing[0]) + " - $" + str(jersey_listing[1]) + " (Jersey Number)\n")
+    f.write(str(jersey_listing[0]) + "," + str(jersey_listing[1]) + " (Jersey Number)\n\n")
   for l in listings:
     print("#" + str(l[0]) + " - $" + str(l[1]))
     f.write(str(l[0]) + ',' + str(l[1]) + '\n')
