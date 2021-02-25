@@ -5,7 +5,6 @@ import requests
 from bs4 import BeautifulSoup
 
 listings = []
-temp = []
 
 url = ''
 max_price = None
@@ -55,9 +54,10 @@ soup = BeautifulSoup(page.content, 'html.parser')
 script = soup.find('script', id='__NEXT_DATA__')
 json_object = json.loads(script.contents[0])
 
-moment_listings = (json_object['props']['pageProps']['moment']['momentListings'])
+moments = (json_object['props']['pageProps']['moment']['momentListings'])
 
-for moment in moment_listings:
+# add each listing at or below max price if it was passed in
+for moment in moments:
   serial = int(float(moment['moment']['flowSerialNumber']))
   price = int(float(moment['moment']['price']))
   if not max_price:
@@ -65,19 +65,11 @@ for moment in moment_listings:
   elif price <= max_price:
     listings.insert(0,(serial, price))
 
+# remove listings of equal or higher price but higher serial number
 i = 0
 while i < len(listings):
   for l in listings:
-    if listings[i][1] == l[1] and listings[i][0] > l[0]:
-      listings.pop(i)
-      i = i - 1
-
-  i = i + 1
-
-i = 0
-while i < len(listings):
-  for l in listings:
-    if listings[i][1] > l[1] and listings[i][0] > l[0]:
+    if listings[i][1] >= l[1] and listings[i][0] > l[0]:
       listings.pop(i)
       i = i - 1
 
