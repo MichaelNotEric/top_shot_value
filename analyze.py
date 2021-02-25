@@ -1,46 +1,72 @@
+import json
+import sys
+import getopt
+import requests
+from bs4 import BeautifulSoup
+
 listings = []
 temp = []
 
-with open('text.txt') as f:
-  lines = f.readline().replace('</option>','\n').split('\n')
-  lines.pop(0)
-  lines.pop(1)
-  lines.pop(len(lines)-1)
-  lines.pop(len(lines)-1)
+url = ''
+max_price = None
 
-  for line in lines:
-    temp.append(line.split('#')[1])
+argv = sys.argv[1:]
 
-with open('parsed.txt','w') as f: 
-  for line in temp:
-    f.write(str(line) + '\n')
+short_options = "hm:u:"
+long_options = ["help","maxprice=","url="]
 
-with open('parsed.txt') as f:
-  line = f.readline()
+try:
+  args, vals = getopt.getopt(argv, short_options, long_options)
+except getopt.error as err:
+  print('\n'+str(err))
+  print("\nUsage: python3 anaylyze.py --url <url>\n\nOptions:\n\n-m/--maxprice: enter a maximum price you are willing to spend\n-h/--help: display usage information\n")
+  sys.exit(2)
 
-  while line:
-    serial = int(line.split(' - ')[0])
-    price = int(float(line.split(' - $')[1].split(' - L')[0].split('\n')[0].replace(',','').replace(' (Jersey Number)','')))
-    if price <= 50:
-      listings.append((serial, price))
-    line = f.readline()
+for arg, val in args:
+  if arg in ("-h", "--help"):
+    print("\nUsage: python3 anaylyze.py --url <url>\n\nOptions:\n\n-m/--maxprice: enter a maximum price you are willing to spend\n-h/--help: display usage information\n")
+    sys.exit(2)
+  elif arg in ("-u", "--url"):
+    url = val
+  elif arg in ("-m", "--maxprice"):
+    try:
+      max_price = int(val)
+    except:
+      print("\nMax price entered incorrectly")
+      print("\nUsage: python3 anaylyze.py --url <url>\n\nOptions:\n\n-m/--maxprice: enter a maximum price you are willing to spend\n-h/--help: display usage information\n")
+      sys.exit(2)
 
+if url == '':
+  print("\nURL entered incorrectly")
+  print("\nUsage: python3 anaylyze.py --url <url>\n\nOptions:\n\n-m/--maxprice: enter a maximum price you are willing to spend\n-h/--help: display usage information\n")
+  sys.exit(2)
+
+
+page = requests.get(url)
+soup = BeautifulSoup(page.content, 'html.parser')
+script = soup.find('script', id='__NEXT_DATA__')
+json_object = json.loads(script.contents[0])
+
+moment_listings = (json_object['props']['pageProps']['moment']['momentListings'])
+
+for moment in moment_listings:
+  serial = int(float(moment['moment']['flowSerialNumber']))
+  price = int(float(moment['moment']['price']))
+  if not max_price:
+    listings.insert(0,(serial, price))
+  elif price <= max_price:
+    listings.insert(0,(serial, price))
 
 i = 0
-
 while i < len(listings):
   for l in listings:
     if listings[i][1] == l[1] and listings[i][0] > l[0]:
       listings.pop(i)
       i = i - 1
-      #print(listings[i])
-      #print(l)
-      #print(' ')
 
   i = i + 1
 
 i = 0
-
 while i < len(listings):
   for l in listings:
     if listings[i][1] > l[1] and listings[i][0] > l[0]:
