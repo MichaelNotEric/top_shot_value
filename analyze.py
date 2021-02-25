@@ -14,9 +14,10 @@ argv = sys.argv[1:]
 short_options = "hm:u:"
 long_options = ["help","maxprice=","url="]
 
-usage = ("\nUsage: python3 anaylyze.py --url <url>\n\nOptions:\n\n"
-        + "-m/--maxprice: enter a maximum price you are willing to "
-        + "spend\n-h/--help: display usage information\n")
+usage = ("\nUsage: python3 anaylyze.py --url <url>\n\n" +
+         "Options/Arguments:\n\n" + "-u/--url: url of a moment (required)\n" +
+         "-m/--maxprice: enter a maximum price you are willing to " +
+         "spend\n-h/--help: display usage information\n")
 
 try:
   args, vals = getopt.getopt(argv, short_options, long_options)
@@ -66,13 +67,14 @@ for m in moments:
 i = 0
 while i < len(listings):
   for l in listings:
-    if len(listings) == 0:
-      print("Something went wrong, please try again")
+    try:
+      if (listings[i][1] >= l[1] and listings[i][0] > l[0] and
+          listings[i][0] != int(play['stats']['jerseyNumber'])):
+        listings.pop(i)
+        i = i - 1
+    except:
+      print("\nSomething went wrong. Please wait a moment and try again.")
       sys.exit(2)
-    if (listings[i][1] >= l[1] and listings[i][0] > l[0] and
-        listings[i][0] != int(play['stats']['jerseyNumber'])):
-      listings.pop(i)
-      i = i - 1
 
   i = i + 1
 
