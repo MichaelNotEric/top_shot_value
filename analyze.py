@@ -70,6 +70,13 @@ while i < len(listings):
 
   i = i + 1
 
+if max_price:
+  print("\nMax Price set to $" + str(max_price) + "\n")
+else:
+  print("\nNo Max Price was set\n")
 with open('out.txt','w') as f:
   for l in listings:
+    print("#" + str(l[0]) + " - $" + str(l[1]))
     f.write(str(l[0]) + ',' + str(l[1]) + '\n')
+
+print("\nCheck out.txt for results!\n")
