@@ -4,7 +4,11 @@ Usage:
 
 
 
-`python3 analyze.py --url <URL of moment listing>`
+```
+pip install -r requirements.txt
+
+python3 analyze.py --url <URL of moment listing>
+```
 
 optional: --maxprice (maximum price you are willing to spend)
 
