@@ -118,4 +118,4 @@ with open('out.txt','w') as f:
     print("#" + str(l[0]) + " - $" + str(l[1]))
     f.write(str(l[0]) + ',' + str(l[1]) + '\n')
 
-print("\nCheck out.txt for results!\n")
+print("\nCheck out.txt for results in an excel-friendly format!\n")
