@@ -66,7 +66,8 @@ for m in moments:
 i = 0
 while i < len(listings):
   for l in listings:
-    if listings[i][1] >= l[1] and listings[i][0] > l[0] and listings[i][0] != int(play['stats']['jerseyNumber']):
+    if (listings[i][1] >= l[1] and listings[i][0] > l[0] and
+        listings[i][0] != int(play['stats']['jerseyNumber'])):
       listings.pop(i)
       i = i - 1
 
