@@ -66,6 +66,9 @@ for m in moments:
 i = 0
 while i < len(listings):
   for l in listings:
+    if len(listings) == 0:
+      print("Something went wrong, please try again")
+      sys.exit(2)
     if (listings[i][1] >= l[1] and listings[i][0] > l[0] and
         listings[i][0] != int(play['stats']['jerseyNumber'])):
       listings.pop(i)
