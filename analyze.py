@@ -8,16 +8,18 @@ listings = []
 
 url = ''
 max_price = None
+all_listings = False
 
 argv = sys.argv[1:]
 
-short_options = "hm:u:"
-long_options = ["help","maxprice=","url="]
+short_options = "ham:u:"
+long_options = ["help","all","maxprice=","url="]
 
 usage = ("\nUsage: python3 anaylyze.py --url <url>\n\n" +
          "Options/Arguments:\n\n" + "-u/--url: url of a moment (required)\n" +
          "-m/--maxprice: enter a maximum price you are willing to " +
-         "spend\n-h/--help: display usage information\n")
+         "spend\n-a/--all: show every listing\n" +
+         "-h/--help: display usage information\n")
 
 try:
   args, vals = getopt.getopt(argv, short_options, long_options)
@@ -39,6 +41,8 @@ for arg, val in args:
       print("\nMax price entered incorrectly")
       print(usage)
       sys.exit(2)
+  elif arg in ("-a", "--all"):
+    all_listings = True
 
 if url == '':
   print("\nURL entered incorrectly")
@@ -63,20 +67,21 @@ for m in moments:
   elif price <= max_price:
     listings.insert(0,(serial, price))
 
+if not all_listings:
 # remove listings of equal or higher price but higher serial number
-i = 0
-while i < len(listings):
-  for l in listings:
-    try:
-      if (listings[i][1] >= l[1] and listings[i][0] > l[0] and
-          listings[i][0] != int(play['stats']['jerseyNumber'])):
-        listings.pop(i)
-        i = i - 1
-    except:
-      print("\nSomething went wrong. Please wait a moment and try again.")
-      sys.exit(2)
+  i = 0
+  while i < len(listings):
+    for l in listings:
+      try:
+        if (listings[i][1] >= l[1] and listings[i][0] > l[0] and
+            listings[i][0] != int(play['stats']['jerseyNumber'])):
+          listings.pop(i)
+          i = i - 1
+      except:
+        print("\nSomething went wrong. Please wait a moment and try again.")
+        sys.exit(2)
 
-  i = i + 1
+    i = i + 1
 
 print("\n" + play['stats']['playerName'] + " " +
       play['stats']['playCategory'] + " - " +
