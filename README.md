@@ -1,5 +1,7 @@
 # top_shot_value
 
+This script is meant to show NBA Top Shot listings that should be considered to have good value.
+
 Usage: 
 
 
@@ -10,7 +12,10 @@ pip install -r requirements.txt
 python3 analyze.py --url <URL of moment listing>
 ```
 
-optional: --maxprice (maximum price you are willing to spend)
+optional:
+`--maxprice (maximum price you are willing to spend) - don't include listings over your max price`
+`--all - include all listings`
+`--help - shows usage information`
 
 
 
