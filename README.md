@@ -13,8 +13,11 @@ python3 analyze.py --url <URL of moment listing>
 ```
 
 optional:
+
 `--maxprice (maximum price you are willing to spend) - don't include listings over your max price`
+
 `--all - include all listings`
+
 `--help - shows usage information`
 
 
