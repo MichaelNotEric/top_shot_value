@@ -16,7 +16,7 @@ optional:
 
 `--maxprice (maximum price you are willing to spend) - don't include listings over your max price`
 
-`--all - include all listings`
+`--all - include all listings, ignoring value`
 
 `--help - shows usage information`
 

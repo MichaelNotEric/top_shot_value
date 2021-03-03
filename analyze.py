@@ -24,7 +24,7 @@ long_options = ["help","all","graph","maxprice=","url="]
 usage = ("\nUsage: python3 anaylyze.py --url <url>\n\n" +
          "Options/Arguments:\n\n" + "-u/--url: url of a moment (required)\n" +
          "-m/--maxprice: enter a maximum price you are willing to " +
-         "spend\n-a/--all: show every listing\n" +
+         "spend\n-a/--all: show every listing, ignoring value\n" +
          "-g/--graph: display graph\n" +
          "-h/--help: display usage information\n")
 
