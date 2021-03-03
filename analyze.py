@@ -4,21 +4,27 @@ import getopt
 import requests
 from bs4 import BeautifulSoup
 
+import matplotlib.pyplot as plt
+plt.style.use('seaborn-whitegrid')
+import numpy as np
+
 listings = []
 
 url = ''
 max_price = None
 all_listings = False
+graph = False
 
 argv = sys.argv[1:]
 
-short_options = "ham:u:"
-long_options = ["help","all","maxprice=","url="]
+short_options = "hagm:u:"
+long_options = ["help","all","graph","maxprice=","url="]
 
 usage = ("\nUsage: python3 anaylyze.py --url <url>\n\n" +
          "Options/Arguments:\n\n" + "-u/--url: url of a moment (required)\n" +
          "-m/--maxprice: enter a maximum price you are willing to " +
          "spend\n-a/--all: show every listing\n" +
+         "-g/--graph: display graph\n" +
          "-h/--help: display usage information\n")
 
 try:
@@ -43,6 +49,8 @@ for arg, val in args:
       sys.exit(2)
   elif arg in ("-a", "--all"):
     all_listings = True
+  elif arg in ("-g", "--graph"):
+    graph = True
 
 if url == '':
   print("\nURL entered incorrectly")
@@ -124,3 +132,16 @@ with open('out.txt','w') as f:
     f.write(str(l[0]) + ',' + str(l[1]) + '\n')
 
 print("\nCheck out.txt for results in an excel-friendly format!\n")
+
+if graph:
+  first = lambda x:x[0]
+  second = lambda x:x[1]
+  serials = map(first, listings)
+  prices = map(second, listings)
+  x = np.fromiter(serials, dtype=np.int)
+  y = np.fromiter(prices, dtype=np.int)
+
+  area = (10 * np.ones(len(x),dtype=np.int))  # 0 to 15 point radii
+
+  plt.scatter(x, y, s=area, alpha=0.5)
+  plt.show()
