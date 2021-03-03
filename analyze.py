@@ -1,3 +1,4 @@
+import csv
 import json
 import sys
 import getopt
@@ -119,19 +120,19 @@ while i < len(listings):
 
   i = i + 1
 
-with open('out.txt','w') as f:
+with open('out.csv','w') as f:
+  writer = csv.writer(f, delimiter=',')
   if jersey_listing:
     print("#" + str(jersey_listing[0]) + " - $" +
           str(jersey_listing[1]) + " (Jersey Number)\n")
 
-    f.write(str(jersey_listing[0]) + "," + str(jersey_listing[1]) +
-            " (Jersey Number)\n\n")
+    writer.writerow([jersey_listing[0], jersey_listing[1]])
 
   for l in listings:
     print("#" + str(l[0]) + " - $" + str(l[1]))
-    f.write(str(l[0]) + ',' + str(l[1]) + '\n')
+    writer.writerow([l[0], l[1]])
 
-print("\nCheck out.txt for results in an excel-friendly format!\n")
+print("\nCheck out.csv for results in an excel-friendly format!\n")
 
 if graph:
   first = lambda x:x[0]
