@@ -138,8 +138,8 @@ if graph:
   second = lambda x:x[1]
   serials = map(first, listings)
   prices = map(second, listings)
-  x = np.fromiter(serials, dtype=np.int)
-  y = np.fromiter(prices, dtype=np.int)
+  x = np.fromiter(prices, dtype=np.int)
+  y = np.fromiter(serials, dtype=np.int)
 
   area = (10 * np.ones(len(x),dtype=np.int))  # 0 to 15 point radii
 
