@@ -1,13 +1,16 @@
 import csv
-import json
-import sys
 import getopt
-import requests
-from bs4 import BeautifulSoup
-
+import json
 import matplotlib.pyplot as plt
-plt.style.use('seaborn-whitegrid')
 import numpy as np
+import requests
+import sys
+
+from bs4 import BeautifulSoup
+from utils import time_func
+
+
+plt.style.use('seaborn-whitegrid')
 
 def get_price_from_url(url):
     page = requests.get(url.strip())
@@ -22,8 +25,11 @@ def get_price_from_url(url):
     price = str(title).split("-")[0].split("$")[1].strip()
     return price
 
-with open("input.txt") as infile, open("output.txt", "w") as outfile:
-    lines = infile.readlines()
-    for line in lines:
-        price = get_price_from_url(line)		
-        outfile.write(price + "\n")
+def write_prices():
+    with open("input.txt") as infile, open("output.txt", "w") as outfile:
+        lines = infile.readlines()
+        for line in lines:
+            price = get_price_from_url(line)		
+            outfile.write(price + "\n")
+
+time_func("fetch the list of prices", write_prices)
