@@ -61,6 +61,3 @@ time_func("analyze the listing", analyze__and_display_listing, url, max_price, a
 
 if graph:
     time_func("graph the listing", graph_listing, listings)
-
-
-
