@@ -1,17 +1,6 @@
-import csv
-import getopt
-import json
-import matplotlib.pyplot as plt
-import numpy as np
-import requests
-import sys
-
-from bs4 import BeautifulSoup
 from listings import get_lowest_price_from_url
 from utils import time_func
 
-
-plt.style.use('seaborn-whitegrid')
 
 def write_prices():
     with open("input.txt") as infile, open("output.txt", "w") as outfile:

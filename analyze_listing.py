@@ -73,3 +73,5 @@ def analyze__and_display_listing(url, max_price, all_listings, listings):
         writer.writerow([l[0], l[1]])
 
     print("\nCheck out.csv for results in an excel-friendly format!\n")
+	
+    return listings
