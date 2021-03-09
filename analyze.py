@@ -16,7 +16,10 @@ parser.add_argument("-g", "--graph", action='store_const', const=True, default=F
 
 args = parser.parse_args()
 
-listings = time_func("analyze the listing", analyze_and_display_listing, args.url, args.maxprice, args.all)
+try:
+    listings = time_func("analyze the listing", analyze_and_display_listing, args.url, args.maxprice, args.all)
+except ValueError as e:
+    print(e)
 
 if args.graph:
     time_func("graph the listing", graph_listing, listings)
