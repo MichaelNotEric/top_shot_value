@@ -41,8 +41,8 @@ def analyze_and_display_listing(url, max_price, all_listings):
 
     print("\n" + play['stats']['playerName'] + " " +
           play['stats']['playCategory'] + " - " +
-          moment['set']['flowName'] + " " +
-          str(moment['set']['flowSeriesNumber']))
+          moment['set']['flowName'] + " (Series " +
+          str(moment['set']['flowSeriesNumber']) + ")")
 
     print(str(moment['circulationCount']) + " copies exist")
 
