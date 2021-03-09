@@ -6,7 +6,7 @@ def analyze_and_display_listing(url, max_price, all_listings):
 
     if not str.startswith(url, "https://www.nbatopshot.com/listings/p2p/"):
         raise ValueError("User passed malformed URL")
-    if max_price < 0:
+    if max_price and max_price < 0:
         raise ValueError("User passed invalid maxprice")
 
     listings = []
@@ -41,8 +41,8 @@ def analyze_and_display_listing(url, max_price, all_listings):
 
     print("\n" + play['stats']['playerName'] + " " +
           play['stats']['playCategory'] + " - " +
-          moment['set']['flowName'] + " " +
-          str(moment['set']['flowSeriesNumber']))
+          moment['set']['flowName'] + " (" +
+          str(moment['set']['flowSeriesNumber']) + ")")
 
     print(str(moment['circulationCount']) + " copies exist")
 
