@@ -2,7 +2,7 @@ import csv
 
 from listings import get_all_listings_from_url
 
-def analyze__and_display_listing(url, max_price, all_listings, listings):
+def analyze_and_display_listing(url, max_price, all_listings, listings):
     moment = get_all_listings_from_url(url)
     play = moment['play']
     moments = moment['momentListings']
