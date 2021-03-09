@@ -6,7 +6,10 @@ from utils import time_func
 
 
 parser = argparse.ArgumentParser(description="Analyze a TopShot Listing")
-parser.add_argument("-u", "--url", metavar='u', type=str, help="URL of a moment (required)")
+
+# if you want to make this implicit/positional later, you can add required=True and remove the "-u" and the "--" in from of url
+parser.add_argument("-u", "--url", type=str, help="URL of a moment (required)", required=True)
+
 parser.add_argument("-m", "--maxprice", type=int, help="Enter a maximum price you are willing to spend", required=False)
 parser.add_argument("-a", "--all", action='store_const', const=True, default=False, help="Use this flag if you want to display all listings, ignoring value", required=False)
 parser.add_argument("-g", "--graph", action='store_const', const=True, default=False, help="Use this flag if you want to visually display the results in a graph", required=False)
