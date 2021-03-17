@@ -1,5 +1,5 @@
 import argparse
-from os import system
+from os import system, name
 import time
 import webbrowser
 import winsound
@@ -15,7 +15,12 @@ parser.add_argument("-t", "--target", type=float, help="Enter a target price", r
 
 args = parser.parse_args()
 
-_ = system('cls')
+# for windows
+if name == 'nt':
+    _ = system('cls')
+# for mac and linux(here, os.name is 'posix')
+else:
+    _ = system('clear')
 
 
 page = get_listing_page(args.url)
@@ -31,5 +36,7 @@ while not found:
     time.sleep(10)
 
 if found:
-    winsound.PlaySound("SystemExit", winsound.SND_ALIAS)
+    if name == 'nt':
+        winsound.PlaySound("SystemExit", winsound.SND_ALIAS)
+	# TODO else for linux/mac (find a library or whatever)
     webbrowser.open_new_tab(args.url)
