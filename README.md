@@ -42,4 +42,8 @@ Example:
 
 `python3 wait_for_target.py --url <URL of moment listing> --target <target_price>`
 
+optional:
+
+`--interval polling interval that defaults to 10s`
+
 When the moment's lowest price falls below the target price it will make a noise and open a tab for the listing.

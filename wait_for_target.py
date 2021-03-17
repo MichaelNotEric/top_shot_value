@@ -13,6 +13,8 @@ parser.add_argument("-u", "--url", type=str, help="URL of a moment (required)", 
 
 parser.add_argument("-t", "--target", type=float, help="Enter a target price", required=True)
 
+parser.add_argument("-i", "--interval", type=int, default=10, help="Polling interval in seconds", required=False)
+
 args = parser.parse_args()
 
 # for windows
@@ -27,13 +29,18 @@ page = get_listing_page(args.url)
 print("Target Price: {}          ".format("{:.2f}".format(args.target)), end='')
 print_listing_details(page)
 
+if args.interval < 1:
+    interval = 10
+else:
+    interval = args.interval
+
 found = False
 while not found:
     try:
         found = price_lower_than_target(args.url, args.target)
     except:
         pass
-    time.sleep(10)
+    time.sleep(args.interval)
 
 if found:
     if name == 'nt':
