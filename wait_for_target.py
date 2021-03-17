@@ -2,7 +2,8 @@ import argparse
 from os import system, name
 import time
 import webbrowser
-import winsound
+if name == 'nt':
+    import winsound
 
 from listings import get_lowest_price_from_url, price_lower_than_target, print_listing_details, get_listing_page
 
