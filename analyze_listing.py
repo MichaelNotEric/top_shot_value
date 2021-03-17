@@ -1,4 +1,5 @@
 import csv
+import sys
 
 from listings import get_all_listings_from_url
 

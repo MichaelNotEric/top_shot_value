@@ -4,13 +4,13 @@ This script is meant to show NBA Top Shot listings that should be considered to 
 
 ## Usage:
 
-### To Analyze a Listing:
-
 ```
 pip install -r requirements.txt
-
-python3 analyze.py --url <URL of moment listing>
 ```
+
+### To Analyze a Listing:
+
+`python3 analyze.py --url <URL of moment listing>`
 
 optional:
 
@@ -37,3 +37,13 @@ Example:
 2. In the file, add a url to a listing per line
 3. Run `python3 prices.py`
 4. Inspect output.txt. Each line will contain the lowest price for the corresponding line in input.txt
+
+### To monitor a listing
+
+`python3 wait_for_target.py --url <URL of moment listing> --target <target_price>`
+
+optional:
+
+`--interval polling interval that defaults to 10s`
+
+When the moment's lowest price falls below the target price it will make a noise and open a tab for the listing.
