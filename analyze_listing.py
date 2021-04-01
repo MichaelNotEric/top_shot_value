@@ -5,7 +5,7 @@ from listings import get_all_listings_from_url
 
 def analyze_and_display_listing(url, max_price, all_listings):
 
-    if not str.startswith(url, "https://www.nbatopshot.com/listings/p2p/"):
+    if not str.startswith(url, "https://www.nbatopshot.com/listings/p2p/") and not str.startswith(url, "https://nbatopshot.com/listings/p2p/"):
         raise ValueError("User passed malformed URL")
     if max_price and max_price < 0:
         raise ValueError("User passed invalid maxprice")
