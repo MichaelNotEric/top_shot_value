@@ -6,7 +6,7 @@ from bs4 import BeautifulSoup
 
 
 def get_listing_page(url):
-    if not str.startswith(url, "https://www.nbatopshot.com/listings/p2p/"):
+    if not str.startswith(url, "https://www.nbatopshot.com/listings/p2p/") and not str.startswith(url, "https://nbatopshot.com/listings/p2p/"):
         raise ValueError("User passed malformed URL")
 
     return requests.get(url.strip())
@@ -34,7 +34,7 @@ def get_lowest_price_from_url(page):
     return price
 	
 def get_all_listings_from_url(url):
-    if not str.startswith(url, "https://www.nbatopshot.com/listings/p2p/"):
+    if not str.startswith(url, "https://www.nbatopshot.com/listings/p2p/") and not str.startswith(url, "https://nbatopshot.com/listings/p2p/"):
         raise ValueError("User passed malformed URL")
 
     page = requests.get(url)
@@ -45,7 +45,7 @@ def get_all_listings_from_url(url):
     return moment
 	
 def get_all_listings_below_target_price_and_serial(url, max_price, max_serial):
-    if not str.startswith(url, "https://www.nbatopshot.com/listings/p2p/"):
+    if not str.startswith(url, "https://www.nbatopshot.com/listings/p2p/") and not str.startswith(url, "https://nbatopshot.com/listings/p2p/"):
         raise ValueError("User passed malformed URL")
     if (max_price and max_price < 0) or not max_price:
         raise ValueError("User passed invalid maxprice")
@@ -95,7 +95,7 @@ def get_all_listings_below_target_price_and_serial(url, max_price, max_serial):
     return listings, moment, play, moments, jersey_listing
 		
 def price_lower_or_equal_to_target(url, target):
-    if not str.startswith(url, "https://www.nbatopshot.com/listings/p2p/"):
+    if not str.startswith(url, "https://www.nbatopshot.com/listings/p2p/") and not str.startswith(url, "https://nbatopshot.com/listings/p2p/"):
         raise ValueError("User passed malformed URL")
     if target < 0:
         raise ValueError("User passed invalid maxprice")
